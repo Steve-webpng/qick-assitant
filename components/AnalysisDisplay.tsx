@@ -1,6 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { AnalysisReport, SWOT } from '../types';
+import ShareIcon from './icons/ShareIcon';
 
 const ViabilityScore: React.FC<{ score: number }> = ({ score }) => {
   const getColor = (s: number) => {
@@ -45,11 +46,34 @@ const AnalysisSection: React.FC<{ title: string; children: React.ReactNode }> = 
 );
 
 const AnalysisDisplay: React.FC<{ report: AnalysisReport }> = ({ report }) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+    } catch (err) {
+      console.error('Failed to copy link: ', err);
+      alert('Failed to copy link to clipboard.');
+    }
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="bg-base-200 p-6 rounded-lg border border-base-300">
+      <div className="bg-base-200 p-6 rounded-lg border border-base-300 relative">
         <h2 className="text-3xl font-extrabold text-center text-text-primary mb-2">"{report.ideaName}"</h2>
         <p className="text-center text-text-secondary">AI Validation Report</p>
+        <div className="absolute top-4 right-4">
+            <button
+                onClick={handleShare}
+                className="flex items-center px-3 py-2 bg-base-300 hover:bg-brand-primary/20 text-text-secondary hover:text-brand-primary rounded-md transition-all duration-200 text-sm"
+                aria-label="Share report"
+            >
+                <ShareIcon className="w-4 h-4 mr-2" />
+                {isCopied ? 'Copied!' : 'Share'}
+            </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

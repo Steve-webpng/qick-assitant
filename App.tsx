@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Header from './components/Header';
 import IdeaForm from './components/IdeaForm';
 import AnalysisDisplay from './components/AnalysisDisplay';
@@ -12,6 +12,22 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const reportId = urlParams.get('reportId');
+    if (reportId) {
+      try {
+        const storedReport = localStorage.getItem(`report_${reportId}`);
+        if (storedReport) {
+          setAnalysisReport(JSON.parse(storedReport));
+        }
+      } catch (e) {
+        console.error("Failed to parse stored report:", e);
+        setError("Could not load the shared analysis report. It might be invalid or expired.");
+      }
+    }
+  }, []);
+
   const handleAnalysis = useCallback(async (idea: Idea) => {
     setIsLoading(true);
     setError(null);
@@ -19,6 +35,9 @@ const App: React.FC = () => {
 
     try {
       const report = await validateBusinessIdea(idea);
+      const reportId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+      localStorage.setItem(`report_${reportId}`, JSON.stringify(report));
+      window.history.pushState({ reportId }, `Analysis for ${report.ideaName}`, `?reportId=${reportId}`);
       setAnalysisReport(report);
     } catch (err) {
       console.error(err);
@@ -32,6 +51,7 @@ const App: React.FC = () => {
   const handleReset = useCallback(() => {
     setAnalysisReport(null);
     setError(null);
+    window.history.pushState({}, document.title, window.location.pathname);
   }, []);
 
   return (
