@@ -19,6 +19,8 @@ export interface AnalysisReport {
   targetAudienceProfile: string;
   potentialRevenueStreams: string[];
   marketingStrategy: string[];
+  potentialMonetizationStrategies: string;
+  scalabilityAnalysis: string;
   swotAnalysis: SWOT;
   overallViabilityScore: number;
   viabilityJustification: string;

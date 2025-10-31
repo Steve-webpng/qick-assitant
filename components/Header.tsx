@@ -1,4 +1,3 @@
-
 import React from 'react';
 import SparklesIcon from './icons/SparklesIcon';
 
@@ -9,11 +8,11 @@ const Header: React.FC = () => {
         <div className="flex items-center space-x-3">
           <SparklesIcon className="w-8 h-8 text-brand-primary" />
           <h1 className="text-2xl font-bold tracking-tight text-text-primary">
-            IdeaSpark AI
+            IdeaSpark
           </h1>
         </div>
         <p className="hidden md:block text-text-secondary">
-          Your AI-Powered Business Idea Co-pilot
+          Powered by Nkumba University
         </p>
       </div>
     </header>

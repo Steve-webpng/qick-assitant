@@ -22,7 +22,8 @@ const App: React.FC = () => {
       setAnalysisReport(report);
     } catch (err) {
       console.error(err);
-      setError('An error occurred while analyzing your idea. Please check your API key and try again.');
+      // FIX: Updated error message to be more generic and not mention the API key.
+      setError('An error occurred while analyzing your idea. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -65,7 +66,7 @@ const App: React.FC = () => {
         </div>
       </main>
       <footer className="text-center py-6 text-sm text-base-300">
-        <p>&copy; {new Date().getFullYear()} IdeaSpark AI. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} IdeaSpark. Powered by Nkumba University.</p>
       </footer>
     </div>
   );

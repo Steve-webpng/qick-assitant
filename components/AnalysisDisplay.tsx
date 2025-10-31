@@ -73,11 +73,20 @@ const AnalysisDisplay: React.FC<{ report: AnalysisReport }> = ({ report }) => {
         <p>{report.targetAudienceProfile}</p>
       </AnalysisSection>
 
+      <AnalysisSection title="Potential Monetization Strategies">
+        <p>{report.potentialMonetizationStrategies}</p>
+      </AnalysisSection>
+
+      <AnalysisSection title="Scalability Analysis">
+        <p>{report.scalabilityAnalysis}</p>
+      </AnalysisSection>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <AnalysisSection title="Potential Revenue Streams">
           <ul className="list-disc list-inside space-y-2">
             {report.potentialRevenueStreams.map((item, index) => <li key={index}>{item}</li>)}
           </ul>
+        {/* FIX: Corrected closing tag typo from FAnalysisSection to AnalysisSection */}
         </AnalysisSection>
         <AnalysisSection title="Marketing Strategy">
           <ul className="list-disc list-inside space-y-2">
