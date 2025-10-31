@@ -1,0 +1,5 @@
+{
+  "name": "IdeaSpark AI",
+  "description": "An AI-powered SaaS application that validates business ideas by providing a comprehensive analysis of market viability, competition, potential revenue streams, and marketing strategies using the Gemini API.",
+  "requestFramePermissions": []
+}
